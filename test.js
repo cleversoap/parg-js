@@ -1,6 +1,6 @@
 /**
- * These are tests for simple type and position.
- */
+* These are tests for simple type and position.
+*/
 describe('Single Value Type Check', function () {
 
     function _typeCheck () {
@@ -43,6 +43,36 @@ describe('Single Value Type Check', function () {
         // However a reference should work
         function func () {};
         expect(_typeCheck(func).arg1).toBe(func);
+    });
+
+});
+
+/**
+* These tests are still for single values but they now check based on
+* instanceof complex comparisons.
+*/
+describe('Single Value Instance Check', function () {
+
+    // "Class" used for comparisons
+    function Class () {
+    }
+
+    // "ParentClass" used for inheritance checks
+    function ParentClass() {
+    }
+
+    // "ChildClass" used for inheritance checks
+    function ChildClass() {
+    }
+    ChildClass.prototype = Object.create(ParentClass.prototype);
+
+    it('accepts both type and instance declarations', function() {
+        expect(parg([new Class()], {p:'arg1',t:Class}).arg1).toBeDefined();
+        expect(parg([new Class()], {p:'arg1',i:Class}).arg1).toBeDefined();
+    });
+
+    it('is class object', function() {
+        expect(parg([new Class()], {p:'arg1',t:Class}).arg1).toBeDefined();
     });
 
 });
