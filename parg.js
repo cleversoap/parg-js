@@ -34,6 +34,10 @@
 (function () {
 
     function parg (args, fmt) {
+        if (!(fmt instanceof Array)) {
+            fmt = [fmt];
+        }
+
         if (args instanceof Array) {
             var result = {}; 
 
@@ -41,7 +45,6 @@
                 if (i < fmt.length) {
                     var r = parg._parse(arg, fmt[i]);
                     if (r) {
-                    console.log(r);
                         result[r.p] = args[i];
                     }
                 }
