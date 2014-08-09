@@ -39,7 +39,7 @@
         }
 
         if (args instanceof Array) {
-            var result = {}; 
+            var result = {};
 
             args.forEach(function (arg, i) {
                 if (i < fmt.length) {
@@ -84,13 +84,13 @@
         } else if (p.hasOwnProperty('i') || p.hasOwnProperty('instance')) {
             return parg._INSTANCE;
         } else if (p.hasOwnProperty('nt') || p.hasOwnProperty('not_type')) {
-            return typeof parg._getTarget(p) === 'string' ? parg._NOT_TYPE : parg._NOT_INSTANCE; 
+            return typeof parg._getTarget(p) === 'string' ? parg._NOT_TYPE : parg._NOT_INSTANCE;
         } else if (p.hasOwnProperty('ni') || p.hasOwnProperty('not_instance')) {
             return parg._NOT_INSTANCE;
         }
     };
 
-    parg._getTarget = function (p) { 
+    parg._getTarget = function (p) {
         return p['t'] || p['nt'] || p['i'] || p['ni'] || p['type'] || p['not_type'] || p['instance'] || p['not_instance'];
     };
 
@@ -112,7 +112,7 @@
 
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
         module.exports = parg;
-    } else if (typeof define === 'function' && define.amd) { 
+    } else if (typeof define === 'function' && define.amd) {
         define([], function() {
             return parg;
         });
