@@ -34,12 +34,16 @@
 (function () {
 
     function parg (args, fmt) {
+        if (!(fmt instanceof Array)) {
+            fmt = [fmt];
+        }
+
         if (args instanceof Array) {
             var result = {}; 
 
             args.forEach(function (arg, i) {
                 if (i < fmt.length) {
-                    var r = parg._parse(fmt[i]);
+                    var r = parg._parse(arg, fmt[i]);
                     if (r) {
                         result[r.p] = args[i];
                     }
@@ -65,7 +69,9 @@
         if (param instanceof Array) {
             return param.filter(function (p) { return parg._parse(arg, p); })[0];
         } else {
-            return parg._eval(arg, parg._compType(param), pargs._getTarget(param)); 
+            if (parg._eval(arg, parg._compType(param), parg._getTarget(param))) {
+                return param;
+            }
         }
     };
 
