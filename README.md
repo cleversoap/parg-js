@@ -1,5 +1,4 @@
 #parg-js
-
 Javascript's functions are incredibly flexible parameter wise - they accept any number of arguments of any type and can be accessed in the local `arguments` variable even if none are named in the declaration.
 
 Unfortunately there is no universal way to wrangle these arguments when you want to dynamically handle them. This is where parg comes in. `parg` parses the arguments to your function and returns an object with the named parameters set to the value of the argument they matched.
@@ -20,3 +19,6 @@ something('hello world');
 ## Roadmap
 - Function handlers for specific configurations that will spit out to the individually named arguments of the target functions from one core function eg. `parg.func(this, 'functionName', {... groups with handler function ...}
 - Default handlers on a specific parameter matching, eg. if arg1 is set then arg3 should be this value.
+
+## License
+This projected is licensed under the terms of the MIT license.
