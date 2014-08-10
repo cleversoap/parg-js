@@ -1,11 +1,38 @@
+//---------------------------------------------------------------------[ SETUP ]
+
+/**
+* Does a very basic type check and should always return an argument
+* that matches.
+*/
+function _typeCheck () {
+    return parg(arguments, {p: 'arg1', t: typeof arguments[0]});
+}
+
+/**
+* Basic class used for comparisons.
+*/
+function Class () {
+}
+
+/**
+* "ParentClass" used for inheritance checks
+*/
+function ParentClass() {
+}
+
+/**
+* "ChildClass" used for inheritance checks - inherits from ParentClass
+*/
+function ChildClass() {
+}
+ChildClass.prototype = Object.create(ParentClass.prototype);
+
+//---------------------------------------------------------------------[ TESTS ]
+
 /**
 * These are tests for simple type and position.
 */
 describe('Single Value Type Check', function () {
-
-    function _typeCheck () {
-        return parg(arguments, {p: 'arg1', t: typeof arguments[0]});
-    }
 
     it('type string', function () {
         expect(_typeCheck('hello').arg1).toBe('hello');
@@ -53,19 +80,6 @@ describe('Single Value Type Check', function () {
 */
 describe('Single Value Instance Check', function () {
 
-    // "Class" used for comparisons
-    function Class () {
-    }
-
-    // "ParentClass" used for inheritance checks
-    function ParentClass() {
-    }
-
-    // "ChildClass" used for inheritance checks
-    function ChildClass() {
-    }
-    ChildClass.prototype = Object.create(ParentClass.prototype);
-
     it('accepts both type and instance declarations', function () {
         expect(parg([new Class()], {p:'arg1',t:Class}).arg1).toBeDefined();
         expect(parg([new Class()], {p:'arg1',i:Class}).arg1).toBeDefined();
@@ -80,4 +94,20 @@ describe('Single Value Instance Check', function () {
         expect(parg([new ChildClass()], {p:'arg1',t:ParentClass}).arg1).toBeDefined();
         expect(parg([new ParentClass()], {p:'arg1',t:ChildClass}).arg1).not.toBeDefined();
     });
+
+});
+
+/**
+* These are tests of multiple parameters and complex substitutions.
+*/
+describe('Multiple values and substitutions', function () {
+
+    it('only returns the correct argument', function () {
+        var fmt = [{p:'arg1', t:'number'}, {p:'arg2', t:'string'}];
+        expect(parg([1], fmt).arg1).toBe(1);
+        expect(parg([1], fmt).arg2).not.toBeDefined();
+        expect(parg(['hello'],fmt).arg1).not.toBeDefined();
+        expect(parg(['hello'],fmt).arg2).not.toBeDefined();
+    });
+
 });
