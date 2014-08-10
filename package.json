@@ -1,6 +1,6 @@
 {
     "name": "parg-js",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Variable argument parsing for Javascript functions.",
     "main": "parg.js",
     "scripts": {
