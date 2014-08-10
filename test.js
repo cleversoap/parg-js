@@ -110,4 +110,20 @@ describe('Multiple values and substitutions', function () {
         expect(parg(['hello'],fmt).arg2).not.toBeDefined();
     });
 
+    it('correctly returns each argument', function () {
+        var fmt = [{p:'arg1', t:'number'}, {p:'arg2', t:'string'}];
+        var args = [1, 'hello'];
+        var result = parg(args, fmt);
+        expect(result.arg1).toBe(1);
+        expect(result.arg2).toBe('hello');
+    });
+
+    it('selects the correct option with same name', function () {
+        var fmt = [{p:'arg1', t:'number'}, [{p:'arg2', t:'string'}, {p: 'arg2', t: 'number'}]];
+        expect(parg([1,'hello'], fmt).arg1).toBe(1);
+        expect(parg([1,'hello'], fmt).arg2).toBe('hello');
+        expect(parg([1,2], fmt).arg1).toBe(1);
+        expect(parg([1,2], fmt).arg2).toBe(2);
+    });
+
 });
