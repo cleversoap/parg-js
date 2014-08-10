@@ -66,13 +66,18 @@ describe('Single Value Instance Check', function () {
     }
     ChildClass.prototype = Object.create(ParentClass.prototype);
 
-    it('accepts both type and instance declarations', function() {
+    it('accepts both type and instance declarations', function () {
         expect(parg([new Class()], {p:'arg1',t:Class}).arg1).toBeDefined();
         expect(parg([new Class()], {p:'arg1',i:Class}).arg1).toBeDefined();
     });
 
-    it('is class object', function() {
+    it('is class object', function () {
         expect(parg([new Class()], {p:'arg1',t:Class}).arg1).toBeDefined();
     });
 
+    it('respects inheritance', function () {
+        expect(parg([new ChildClass()], {p:'arg1',t:ChildClass}).arg1).toBeDefined();
+        expect(parg([new ChildClass()], {p:'arg1',t:ParentClass}).arg1).toBeDefined();
+        expect(parg([new ParentClass()], {p:'arg1',t:ChildClass}).arg1).not.toBeDefined();
+    });
 });
